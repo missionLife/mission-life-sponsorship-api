@@ -50,7 +50,7 @@ paths:
       security:
       - cognito_user_pool_authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:{{{AWS_ACCOUNT_ID}}}:function:missionLifeSponsorshipAPI/invocations"
+        uri: "arn:aws:apigateway:{{{AWS_DEFAULT_REGION}}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{{AWS_DEFAULT_REGION}}}:{{{AWS_ACCOUNT_ID}}}:function:missionLifeSponsorshipAPI/invocations"
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
         type: "aws_proxy"
@@ -64,4 +64,4 @@ securityDefinitions:
     x-amazon-apigateway-authorizer:
       type: "cognito_user_pools"
       providerARNs: 
-        - "arn:aws:cognito-idp:eu-west-1:{{{AWS_ACCOUNT_ID}}}:userpool/{{{MISSION_LIFE_COGNITO_USER_POOL_ID}}}"
+        - "arn:aws:cognito-idp:{{{AWS_DEFAULT_REGION}}}:{{{AWS_ACCOUNT_ID}}}:userpool/{{{MISSION_LIFE_COGNITO_USER_POOL_ID}}}"
