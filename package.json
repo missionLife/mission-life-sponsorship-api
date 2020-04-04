@@ -1,0 +1,37 @@
+{
+  "name": "mission-life-sponsorship-api",
+  "version": "0.0.1",
+  "description": "An API for fetching sponsorship data from Reach Service",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "scripts/build",
+    "clean": "rm -rf dist/",
+    "deploy": "scripts/deploy",
+    "postinstall": "if [ -z \"$npm_config_production\" ]; then npm outdated; exit 0; fi",
+    "postversion": "git push --follow-tags",
+    "test": "npm run transpile && JASMINE_CONFIG_PATH=jasmine.json jasmine",
+    "transpile": "npm run clean && babel src --out-dir dist/cjs --copy-files",
+    "update": "npx npm-check -uE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://missionLife:g32PcG8k4t4rf8nc.*Cr_U_R@github.com/missionLife/mission-life-sponsorship-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/missionLife/mission-life-sponsorship-api/issues"
+  },
+  "homepage": "https://github.com/missionLife/mission-life-sponsorship-api#readme",
+  "devDependencies": {
+    "@babel/cli": "7.8.4",
+    "@babel/core": "7.9.0",
+    "@babel/preset-env": "7.9.0",
+    "jasmine": "3.5.0",
+    "mustache": "4.0.1"
+  },
+  "dependencies": {
+    "aws-sdk": "2.653.0",
+    "node-fetch": "^2.6.0"
+  }
+}

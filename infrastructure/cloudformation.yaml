@@ -1,0 +1,66 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Mission Life Sponsorship API
+Resources:
+
+# API Gateway
+  ApiGatewayApi:
+    Type: AWS::Serverless:Api
+    Properties:
+      DefinitionUri: ../dist/swagger.yaml
+      StageName: v0
+      Variables:
+        LambdaFunctionName: !Ref MissionLifeSponsorshipAPI
+
+# Sponsorship API Lambda Resources
+  MissionLifeSponsorshipAPI:
+    DependsOn:
+      - MissionLifeSponsorshipAPIExecutionRole
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../dist/mission-life-sponsorship-api.zip
+      FunctionName: missionLifeSponsorshipAPI
+      Handler: index.handler
+      MemorySize: 256
+      Role: !GetAtt MissionLifeSponsorshipAPIExecutionRole.Arn
+      Runtime: nodejs12.x
+      Timeout: 300
+      Environment:
+        Variables:
+          REACH_BASE_URL: {{{REACH_BASE_URL}}}
+          REACH_AUTHORIZATION_TOKEN: {{{REACH_AUTHORIZATION_TOKEN}}}
+
+  MissionLifeSponsorshipAPIExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: '/'
+      Policies:
+      - PolicyName: logs
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+
+  MissionLifeSponsorshipAPILogGroup:
+    DependsOn: MissionLifeSponsorshipAPI
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 14
+      LogGroupName: !Join
+        - ''
+        - - 'lambda/'
+          - !Ref MissionLifeSponsorshipAPI
+
