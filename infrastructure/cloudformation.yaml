@@ -6,7 +6,7 @@ Resources:
 
 # API Gateway
   ApiGatewayApi:
-    Type: AWS::Serverless:Api
+    Type: AWS::Serverless::Api
     Properties:
       DefinitionUri: ../dist/swagger.yaml
       StageName: v0
