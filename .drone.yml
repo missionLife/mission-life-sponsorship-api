@@ -18,6 +18,9 @@ steps:
   image: meltwaterfoundation/drone-serverless:1.60.4
   commands:
   - npm run build
+  environment:
+    AWS_ACCOUNT_ID:
+      from_secret: aws_account_id
   when:
     branch:
     - master
@@ -34,8 +37,6 @@ steps:
       from_secret: aws_access_key_id
     AWS_SECRET_ACCESS_KEY:
       from_secret: aws_secret_access_key
-    AWS_ACCOUNT_ID:
-      from_secret: aws_account_id
   when:
     branch:
     - master
