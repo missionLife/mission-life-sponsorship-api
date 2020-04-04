@@ -16,7 +16,6 @@ echo "{\"AWS_ACCESS_KEY_ID\":\"${AWS_ACCESS_KEY_ID}\",
 \"AWS_SECRET_ACCESS_KEY\":\"${AWS_SECRET_ACCESS_KEY}\",
 \"AWS_DEFAULT_REGION\":\"${AWS_DEFAULT_REGION}\",
 \"AWS_ACCOUNT_ID\":\"${AWS_ACCOUNT_ID}\"}" | mustache - ./infrastructure/constants/$DRONE_BRANCH.json > ./dist/constants.json
-cat ./infrastructure/constants/$DRONE_BRANCH.json | mustache - ./dist/constants.json
 cat ./dist/constants.json | mustache - ./infrastructure/cloudformation.yaml > ./dist/cloudformation.yaml
 cat ./dist/constants.json | mustache - ./infrastructure/swagger.yaml > ./dist/swagger.yaml
 
