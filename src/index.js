@@ -4,7 +4,7 @@ AWS.config.setPromisesDependency(Promise);
 AWS.config.update({ region: process.env.AWS_REGION });
 
 async function consume(event, context) {
-  console.log('GOT HERE!!!');
+  console.log('GOT HERE THE EVENT!!!', event);
 
   return {
     statusCode: 200,
