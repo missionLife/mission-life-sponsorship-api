@@ -18,7 +18,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      Function: !GetAtt MissionLifeSponsorshipAPI.Arn
+      FunctionName: !GetAtt MissionLifeSponsorshipAPI.Arn
       Principal: apigateway.amazonaws.com
       SourceArn: !Join
         - ''
