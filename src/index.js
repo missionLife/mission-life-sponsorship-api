@@ -7,6 +7,7 @@ const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
 async function getUserFromToken(event, context) {
   console.log('GOT HERE THE EVENT!!!', event);
+  console.log('GOT HERE THE TOKEN!!!', event.headers.Authorization);
 
   try {
     const user = await cognitoIdentityServiceProvider.getUser({
@@ -14,7 +15,7 @@ async function getUserFromToken(event, context) {
     }).promise();
   
     console.log('########### THE USER!!!!!!', user);
-    
+
     return {
       statusCode: 200,
       headers: {
