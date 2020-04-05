@@ -11,11 +11,12 @@ const missionLifeUsersDataRepo = new MissionLifeUsersDataRepo(documentClient);
 function getUserFromEvent(event) {
   return event.requestContext.authorizer.claims.email;
 }
+
 async function getSponsorships(event, context) {
 
   try {
-    console.log('########### THE USER!!!!!!', userEmail);
     const userEmail = getUserFromEvent(event);
+    console.log('########### THE USER!!!!!!', userEmail);
 
     const sponsorshipIds = await missionLifeUsersDataRepo.getSponsorshipIds(userEmail);
     console.log('########### THE DYNAMO RESPONSE!!!!!!', sponsorshipIds);
