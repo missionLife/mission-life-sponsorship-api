@@ -13,6 +13,7 @@ const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider(po
 async function getUserFromToken(event, context) {
   console.log('GOT HERE THE EVENT!!!', event);
   console.log('GOT HERE THE TOKEN!!!', event.headers.Authorization);
+  console.log('REQUEST CONTEXT: ', JSON.stringify(event.requestContext.authorizer))
 
   try {
     const user = await cognitoIdentityServiceProvider.getUser({
