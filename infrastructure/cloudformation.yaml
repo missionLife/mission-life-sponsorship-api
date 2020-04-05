@@ -78,6 +78,21 @@ Resources:
             Action:
             - cognito-idp:getUser
             Resource: arn:aws:cognito-idp:*:*:*
+      - PolicyName: dynamodb
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+            - dynamodb:GetItem
+            - dynamodb:GetRecords
+            - dynamodb:BatchGetItem
+            - dynamodb:BatchWriteItem
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:PutItem
+            Resource:
+            - {{{MISSION_LIFE_USERS_TABLE_ARN}}}
       
 
   MissionLifeSponsorshipAPILogGroup:

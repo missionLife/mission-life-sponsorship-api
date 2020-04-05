@@ -1,6 +1,7 @@
 {
   "MISSION_LIFE_COGNITO_USER_POOL_ARN": "arn:aws:cognito-idp:us-east-2:010242410260:userpool/us-east-2_laC3yucNE",
   "MISSION_LIFE_COGNITO_USER_POOL_ID": "us-east-2_laC3yucNE",
+  "MISSION_LIFE_USERS_TABLE_ARN": "arn:aws:dynamodb:us-east-2:010242410260:table/MISSION_LIFE_USERS",
   "REACH_BASE_URL": "https://missionlife.reachapp.co/api/v1",
   "REACH_AUTHORIZATION_TOKEN": "Basic NDBiNjg5ODk0ZTRhZGNjOGFjNzcxMjk4MzRlYzMzY2Q6OWYwNGVhZGUxMzc5NjgwZGM0YmVjOTJlMjMyMTVmOWQ0NDNiZWU0ZWVkMDljOTRkYzg0MjQwZGZkM2UzZTM5MA==",
   "AWS_DEFAULT_REGION": "{{{AWS_DEFAULT_REGION}}}",

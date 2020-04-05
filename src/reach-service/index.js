@@ -9,7 +9,7 @@ const HTTP_OPTIONS = {
 export default class ReachService {
   constructor() { }
 
-  async getSponsorships(idArray) {
+  static async getSponsorships(idArray) {
     const batchPromises = [];
     for (const sponsorshipId of idArray) {
       batchPromises.push(

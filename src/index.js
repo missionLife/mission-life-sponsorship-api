@@ -1,30 +1,32 @@
 import AWS from 'aws-sdk';
+import ReachService from './reach-service';
+import MissionLifeUsersDataRepo from './mission-life-users-data-repo';
 
 AWS.config.setPromisesDependency(Promise);
 AWS.config.update({ region: process.env.AWS_REGION });
 
+const documentClient = new AWS.DynamoDB.DocumentClient();
+const missionLifeUsersDataRepo = new MissionLifeUsersDataRepo(documentClient);
 
 function getUserFromEvent(event) {
   return event.requestContext.authorizer.claims.email;
 }
 async function getSponsorships(event, context) {
 
-  const userEmail = getUserFromEvent(event);
-
-  // TODO CALL DYNAMO
-
-  // TODO CALL REACH
-
-  // Return Sponsorships
   try {
     console.log('########### THE USER!!!!!!', userEmail);
+    const userEmail = getUserFromEvent(event);
+
+    const sponsorshipIds = await missionLifeUsersDataRepo.getSponsorshipIds(userEmail);
+    console.log('########### THE DYNAMO RESPONSE!!!!!!', sponsorshipIds);
+    // const sponsorships = await ReachService.getSponsorships(sponsorshipIds);
 
     return {
       statusCode: 200,
       headers: {
           'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({ message: 'Success' })
+      body: JSON.stringify({ message: 'Success' });
     }  
   } catch (error) {
     throw new Error(error.message);
