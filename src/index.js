@@ -3,7 +3,12 @@ import AWS from 'aws-sdk';
 AWS.config.setPromisesDependency(Promise);
 AWS.config.update({ region: process.env.AWS_REGION });
 
-const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
+const poolData = {
+  UserPoolId: 'us-east-2_laC3yucNE', // Your user pool id here
+  ClientId: '55kupjfu7vnn7ogu57p3h7psmd' // Your client id here  
+};
+
+const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider(poolData);
 
 async function getUserFromToken(event, context) {
   console.log('GOT HERE THE EVENT!!!', event);
