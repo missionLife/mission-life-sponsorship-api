@@ -20,14 +20,15 @@ async function getSponsorships(event, context) {
 
     const sponsorshipIds = await missionLifeUsersDataRepo.getSponsorshipIds(userEmail);
     console.log('########### THE DYNAMO RESPONSE!!!!!!', sponsorshipIds);
-    // const sponsorships = await ReachService.getSponsorships(sponsorshipIds);
 
+    const sponsorships = await ReachService.getSponsorships(sponsorshipIds);
+    console.log('########### THE REACH RESPONSE!!!!!!', sponsorships);
     return {
       statusCode: 200,
       headers: {
           'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({ message: 'Success' })
+      body: JSON.stringify({ sponsorships })
     }  
   } catch (error) {
     throw new Error(error.message);

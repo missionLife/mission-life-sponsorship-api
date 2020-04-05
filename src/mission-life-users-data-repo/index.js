@@ -24,6 +24,12 @@ export default class MissionLifeUsersDataRepo {
 
     const data = await this.documentClient.query(params).promise();
 
-    return data.Items;
+    const results = [];
+
+    for (const item of data.Items) {
+      results.push(item['SPONSORSHIP_ID']);
+    }
+
+    return results;
   }
 }
