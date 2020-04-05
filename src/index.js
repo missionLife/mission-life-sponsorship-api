@@ -26,7 +26,7 @@ async function getSponsorships(event, context) {
       headers: {
           'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({ message: 'Success' });
+      body: JSON.stringify({ message: 'Success' })
     }  
   } catch (error) {
     throw new Error(error.message);
