@@ -5,7 +5,14 @@ AWS.config.update({ region: process.env.AWS_REGION });
 
 async function consume(event, context) {
   console.log('GOT HERE!!!');
-  return { message: 'Success' };
+
+  return {
+    statusCode: 200,
+    headers: {
+        'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({ message: 'Success' })
+  }
 }
 
 exports.handler = async (event, context) => {
