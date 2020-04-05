@@ -70,6 +70,15 @@ Resources:
             - logs:CreateLogStream
             - logs:PutLogEvents
             Resource: arn:aws:logs:*:*:*
+      - PolicyName: cognito
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - cognito-idp:getUser
+            Resource: arn:aws:cognito-idp:*:*:*
+      
 
   MissionLifeSponsorshipAPILogGroup:
     DependsOn: MissionLifeSponsorshipAPI
