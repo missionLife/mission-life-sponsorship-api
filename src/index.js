@@ -3,24 +3,21 @@ import AWS from 'aws-sdk';
 AWS.config.setPromisesDependency(Promise);
 AWS.config.update({ region: process.env.AWS_REGION });
 
-const poolData = {
-  UserPoolId: 'us-east-2_laC3yucNE', // Your user pool id here
-  ClientId: '55kupjfu7vnn7ogu57p3h7psmd' // Your client id here  
-};
 
-const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider(poolData);
+function getUserFromEvent(event) {
+  return event.requestContext.authorizer.claims.email;
+}
+async function getSponsorships(event, context) {
 
-async function getUserFromToken(event, context) {
-  console.log('GOT HERE THE EVENT!!!', event);
-  console.log('GOT HERE THE TOKEN!!!', event.headers.Authorization);
-  console.log('REQUEST CONTEXT: ', JSON.stringify(event.requestContext.authorizer))
+  const userEmail = getUserFromEvent(event);
 
+  // TODO CALL DYNAMO
+
+  // TODO CALL REACH
+
+  // Return Sponsorships
   try {
-    const user = await cognitoIdentityServiceProvider.getUser({
-      AccessToken: event.headers.Authorization
-    }).promise();
-  
-    console.log('########### THE USER!!!!!!', user);
+    console.log('########### THE USER!!!!!!', userEmail);
 
     return {
       statusCode: 200,
@@ -36,7 +33,7 @@ async function getUserFromToken(event, context) {
 
 exports.handler = async (event, context) => {
   try {
-    return await getUserFromToken(event, context);
+    return await getSponsorships(event, context);
   } catch (error) {
     const messageObject = {
       message: `An error occurred in the Mission Life Sponsorship API: ${error.message}`
