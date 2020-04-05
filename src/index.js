@@ -28,7 +28,10 @@ async function getSponsorships(event, context) {
       headers: {
           'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({ sponsorships })
+      body: JSON.stringify({
+        sponsorships,
+        supporter: userEmail
+      })
     }  
   } catch (error) {
     throw new Error(error.message);
