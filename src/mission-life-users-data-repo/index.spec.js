@@ -14,6 +14,7 @@ describe('Mission Life Users Data Repo', () => {
         Items: [
           {
             SPONSORSHIP_ID: 1234,
+            NAME: 'aName',
             EMAIL: 'aUserEmail@email.com'
           },
           {
@@ -35,8 +36,13 @@ describe('Mission Life Users Data Repo', () => {
         'aUserEmail@email.com'
       );
 
-      expect(sponsorshipIds).toEqual(jasmine.any(Array));
-      expect(sponsorshipIds).toEqual([1234, 5678]);
+      expect(sponsorshipIds).toEqual(jasmine.objectContaining(
+        {
+          supporterName: 'aName',
+          sponsorshipIds: jasmine.any(Array)
+        }
+      ));
+      expect(sponsorshipIds).toEqual({ supporterName: 'aName', sponsorshipIds: [1234, 5678]});
     });
 
     it('should throw if userEmail is not a string', async () => {

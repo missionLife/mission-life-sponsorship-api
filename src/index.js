@@ -1,6 +1,6 @@
-import AWS from 'aws-sdk';
-import ReachService from './reach-service';
-import MissionLifeUsersDataRepo from './mission-life-users-data-repo';
+import AWS from "aws-sdk";
+import ReachService from "./reach-service";
+import MissionLifeUsersDataRepo from "./mission-life-users-data-repo";
 
 AWS.config.setPromisesDependency(Promise);
 AWS.config.update({ region: process.env.AWS_REGION });
@@ -13,26 +13,30 @@ function getUserFromEvent(event) {
 }
 
 async function getSponsorships(event, context) {
-
   try {
     const userEmail = getUserFromEvent(event);
-    console.log('########### THE USER!!!!!!', userEmail);
+    console.log("########### THE USER!!!!!!", userEmail);
 
-    const sponsorshipIds = await missionLifeUsersDataRepo.getSponsorshipIds(userEmail);
-    console.log('########### THE DYNAMO RESPONSE!!!!!!', sponsorshipIds);
+    const {
+      supporterName,
+      sponsorshipIds
+    } = await missionLifeUsersDataRepo.getSponsorshipIds(userEmail);
+    console.log("########### THE DYNAMO RESPONSE supporterName!!!!!!", supporterName);
+    console.log("########### THE DYNAMO RESPONSE sponsorshipIds!!!!!!", sponsorshipIds);
 
     const sponsorships = await ReachService.getSponsorships(sponsorshipIds);
-    console.log('########### THE REACH RESPONSE!!!!!!', sponsorships);
+    console.log("########### THE REACH RESPONSE!!!!!!", sponsorships);
     return {
       statusCode: 200,
       headers: {
-          'Access-Control-Allow-Origin': '*'
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({
         sponsorships,
-        supporter: userEmail
+        supporterEmail: userEmail,
+        supporterName
       })
-    }  
+    };
   } catch (error) {
     throw new Error(error.message);
   }
@@ -49,9 +53,9 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 500,
       headers: {
-          'Access-Control-Allow-Origin': '*'
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify(messageObject)
-    } 
+    };
   }
 };

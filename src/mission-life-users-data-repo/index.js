@@ -25,11 +25,18 @@ export default class MissionLifeUsersDataRepo {
     const data = await this.documentClient.query(params).promise();
 
     const results = [];
+    let supporterName;
 
     for (const item of data.Items) {
+      if (!supporterName && item['NAME']) {
+        supporterName = item['NAME'];
+      }
       results.push(item['SPONSORSHIP_ID']);
     }
 
-    return results;
+    return {
+      supporterName,
+      sponsorshipIds: results
+    };
   }
 }
