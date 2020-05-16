@@ -10,7 +10,8 @@ const missionLifeUsersDataRepo = new MissionLifeUsersDataRepo(documentClient);
 
 function formatSponsorships(sponsorships, isAvailableForUpload) {
   for (let i = 0; i < sponsorships.length; i++) {
-    sponsorships[i].isAvailableForUpload = isAvailableForUpload[sponsorships[i].id];
+    sponsorships[i].isAvailableForUpload = isAvailableForUpload[sponsorships[i].id].isAvailable;
+    sponsorships[i].dateAvailableForUpload = isAvailableForUpload[sponsorships[i].id].dateAvailableForUpload;
   }
   return sponsorships;
 }

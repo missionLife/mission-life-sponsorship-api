@@ -3,18 +3,26 @@ export default class MissionLifeUsersDataRepo {
     this.documentClient = documentClient;
   }
 
-  checkIfAvailable(timestamp) {
+  getDiffinDays(timestamp) {
     const lastUploadDate = new Date(timestamp);
 
     const now = new Date();
 
     // To calculate the time difference of two dates
     const differenceInTime = now.getTime() - lastUploadDate.getTime();
-
+    console.log("THE DIFF IN DAYS: ",  Math.floor(differenceInTime / (1000 * 3600 * 24)));
     // To calculate the no. of days between two dates
-    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-    console.log("THE DIFF IN DAYS: ", differenceInDays);
-    return differenceInDays > 30;
+    return Math.floor(differenceInTime / (1000 * 3600 * 24));
+  }
+
+  getNextUploadDate(timestamp) {
+    const now = new Date();
+    const differenceInDays = this.getDiffinDays(timestamp);
+    return now.setDate(now.getDate() + differenceInDays);
+  }
+
+  checkIfAvailable(timestamp) {
+    return this.getDiffinDays(timestamp) > 30;
   }
 
   async getSponsorshipIds(userEmail) {
@@ -46,9 +54,12 @@ export default class MissionLifeUsersDataRepo {
         supporterName = item["NAME"];
       }
       results.push(item["SPONSORSHIP_ID"]);
-      isAvailableForUpload[item["SPONSORSHIP_ID"]] = this.checkIfAvailable(
-        item["LAST_UPLOAD_TIMESTAMP"]
-      );
+      isAvailableForUpload[item["SPONSORSHIP_ID"]] = {
+        isAvailable: this.checkIfAvailable(
+          item["LAST_UPLOAD_TIMESTAMP"]
+        ),
+        dateAvailableForUpload: this.getNextUploadDate(item["LAST_UPLOAD_TIMESTAMP"])
+      }
     }
 
     return {
