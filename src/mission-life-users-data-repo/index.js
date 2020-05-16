@@ -16,9 +16,9 @@ export default class MissionLifeUsersDataRepo {
   }
 
   getNextUploadDate(timestamp) {
-    const now = new Date();
+    const lastUploadDate = new Date(timestamp);
     const differenceInDays = this.getDiffinDays(timestamp);
-    return now.setDate(now.getDate() + differenceInDays);
+    return lastUploadDate.setDate(lastUploadDate.getDate() + differenceInDays);
   }
 
   checkIfAvailable(timestamp) {
