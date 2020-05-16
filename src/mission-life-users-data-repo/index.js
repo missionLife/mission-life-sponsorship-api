@@ -5,8 +5,10 @@ export default class MissionLifeUsersDataRepo {
 
   getDiffinDays(timestamp) {
     const lastUploadDate = new Date(timestamp);
+    lastUploadDate.setHours(23,59,59,999);
 
     const now = new Date();
+    now.setHours(0,0,0,0);
 
     // To calculate the time difference of two dates
     const differenceInTime = now.getTime() - lastUploadDate.getTime();
