@@ -12,11 +12,8 @@ export default class MissionLifeUsersDataRepo {
 
     // To calculate the time difference of two dates
     const differenceInTime = now.getTime() - lastUploadDate.getTime();
-    console.log("THE DIFF IN DAYS RAW: ", (differenceInTime / (1000 * 3600 * 24)));
-    console.log("THE DIFF IN DAYS FLOOR: ",  Math.floor(differenceInTime / (1000 * 3600 * 24)));
-    console.log("THE DIFF IN DAYS CEIL: ",  Math.ceil(differenceInTime / (1000 * 3600 * 24)));
     // To calculate the no. of days between two dates
-    return Math.ceil(differenceInTime / (1000 * 3600 * 24));
+    return (differenceInTime / (1000 * 3600 * 24));
   }
 
   getNextUploadDate(timestamp) {
