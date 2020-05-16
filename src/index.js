@@ -8,6 +8,13 @@ AWS.config.update({ region: process.env.AWS_REGION });
 const documentClient = new AWS.DynamoDB.DocumentClient();
 const missionLifeUsersDataRepo = new MissionLifeUsersDataRepo(documentClient);
 
+function formatSponsorships(sponsorships, isAvailableForUpload) {
+  for (let i = 0; i < sponsorships.length; i++) {
+    sponsorships[i].isAvailableForUpload = isAvailableForUpload[sponsorships[i].id];
+  }
+  return sponsorships;
+}
+
 function getUserFromEvent(event) {
   return event.requestContext.authorizer.claims.email;
 }
@@ -19,12 +26,14 @@ async function getSponsorships(event, context) {
 
     const {
       supporterName,
-      sponsorshipIds
+      sponsorshipIds,
+      isAvailableForUpload
     } = await missionLifeUsersDataRepo.getSponsorshipIds(userEmail);
     console.log("########### THE DYNAMO RESPONSE supporterName!!!!!!", supporterName);
     console.log("########### THE DYNAMO RESPONSE sponsorshipIds!!!!!!", sponsorshipIds);
 
-    const sponsorships = await ReachService.getSponsorships(sponsorshipIds);
+    let sponsorships = await ReachService.getSponsorships(sponsorshipIds);
+    sponsorships = formatSponsorships(sponsorships, isAvailableForUpload);
     console.log("########### THE REACH RESPONSE!!!!!!", sponsorships);
     return {
       statusCode: 200,
