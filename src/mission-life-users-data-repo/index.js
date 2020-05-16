@@ -16,11 +16,9 @@ export default class MissionLifeUsersDataRepo {
   }
 
   getNextUploadDate(timestamp) {
-    let now = new Date();
+    const now = new Date();
     const differenceInDays = this.getDiffinDays(timestamp);
-    now = now.setDate(now.getDate() + differenceInDays);
-    console.log('GOT HERE NOW:', now);
-    return now.toISOString();
+    return now.setDate(now.getDate() + differenceInDays);
   }
 
   checkIfAvailable(timestamp) {
