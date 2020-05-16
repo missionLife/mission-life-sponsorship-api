@@ -5,7 +5,7 @@ export default class MissionLifeUsersDataRepo {
 
   getDiffinDays(timestamp) {
     const lastUploadDate = new Date(timestamp);
-    lastUploadDate.setHours(23,59,59,999);
+    lastUploadDate.setHours(0,0,0,0);
 
     const now = new Date();
     now.setHours(0,0,0,0);
