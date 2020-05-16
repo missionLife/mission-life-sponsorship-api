@@ -21,7 +21,7 @@ export default class MissionLifeUsersDataRepo {
   }
 
   checkIfAvailable(timestamp) {
-    return this.getDiffinDays(timestamp) > 30;
+    return this.getDiffinDays(timestamp) >= 30;
   }
 
   async getSponsorshipIds(userEmail) {
