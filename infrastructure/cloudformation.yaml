@@ -102,6 +102,6 @@ Resources:
       RetentionInDays: 14
       LogGroupName: !Join
         - ''
-        - - 'lambda/'
+        - - 'aws/lambda/'
           - !Ref MissionLifeSponsorshipAPI
 
