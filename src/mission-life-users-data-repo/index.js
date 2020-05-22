@@ -17,11 +17,18 @@ export default class MissionLifeUsersDataRepo {
   }
 
   getNextUploadDate(timestamp) {
+    if (!timestamp) {
+      return null;
+    }
+
     const lastUploadDate = new Date(timestamp);
     return lastUploadDate.setDate(lastUploadDate.getDate() + 30);
   }
 
   checkIfAvailable(timestamp) {
+    if (!timestamp) {
+      return true;
+    }
     return this.getDiffinDays(timestamp) >= 30;
   }
 
