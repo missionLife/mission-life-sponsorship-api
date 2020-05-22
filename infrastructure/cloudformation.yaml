@@ -93,15 +93,5 @@ Resources:
             - dynamodb:PutItem
             Resource:
             - {{{MISSION_LIFE_USERS_TABLE_ARN}}}
-      
 
-  MissionLifeSponsorshipAPILogGroup:
-    DependsOn: MissionLifeSponsorshipAPI
-    Type: AWS::Logs::LogGroup
-    Properties:
-      RetentionInDays: 14
-      LogGroupName: !Join
-        - ''
-        - - '/aws/lambda/'
-          - !Ref MissionLifeSponsorshipAPI
 
